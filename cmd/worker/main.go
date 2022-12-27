@@ -56,12 +56,13 @@ func startApp(cmd *cobra.Command, _ []string) {
 
 	repositoryRepo := repositoryrepo.New(db)
 	repositoryUsecase := repositoryusecase.New(repositoryRepo, mq)
-
-	workerHandler := &workerhandler.Worker{
+	workerHandler := &workerhandler.ScannerWorker{
 		KafkaTopic:        environments.KafkaTopic,
 		RepositoryUsecase: repositoryUsecase,
 	}
-	workerhandler.RegisterWorker(workerHandler)
+	if err := workerhandler.RegisterScannerWorker(workerHandler); err != nil {
+		panic(err)
+	}
 
 	loggers.JSON.Info("Server exiting")
 }

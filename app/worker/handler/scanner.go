@@ -81,7 +81,7 @@ func search(fileName string, outPath string) ([]entities.ScanFinding, error) {
 	return findings, nil
 }
 
-func (w *Worker) PerformScan(params *messagequeue.StartScannerMessage) error {
+func (w *ScannerWorker) PerformScan(params *messagequeue.StartScannerMessage) error {
 	fmt.Println("PerformScan", params)
 	ctx := context.Background()
 	if params == nil {
@@ -96,7 +96,6 @@ func (w *Worker) PerformScan(params *messagequeue.StartScannerMessage) error {
 	if err != nil {
 		return err
 	}
-
 	github := github.New("scanning", params.URL)
 	defer github.ClearnDirectory()
 	err = github.Clone()
@@ -117,8 +116,6 @@ func (w *Worker) PerformScan(params *messagequeue.StartScannerMessage) error {
 		}
 		allFindings = append(allFindings, findings...)
 	}
-
-	fmt.Println("total findings ", len(allFindings))
 	finishedAt := time.Now()
 	_, err = w.RepositoryUsecase.UpdateOneScanResult(ctx, repositoryusecase.UpdateOneScanResultInput{
 		ID:         scanResult.ID,

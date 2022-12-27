@@ -12,20 +12,21 @@ import (
 
 // env vars used in app
 var (
-	Initialized  bool
-	Environment  string
-	DevMode      bool
-	BaseURL      string
-	ServiceName  string
-	DBHost       string
-	DBPort       string
-	DBUser       string
-	DBPassword   string
-	DBName       string
-	AppVersionNo string
-	KafkaHost    string
-	KafkaPort    string
-	KafkaTopic   string
+	Initialized        bool
+	Environment        string
+	DevMode            bool
+	BaseURL            string
+	ServiceName        string
+	DBHost             string
+	DBPort             string
+	DBUser             string
+	DBPassword         string
+	DBName             string
+	AppVersionNo       string
+	KafkaHost          string
+	KafkaPort          string
+	KafkaTopic         string
+	KafkaBrokerAddress string
 )
 
 // Init does env variables initialization
@@ -52,6 +53,7 @@ func Init(useProductionEnv bool) {
 	KafkaHost = requireEnv("KAFKA_HOST")
 	KafkaPort = requireEnv("KAFKA_PORT")
 	DevMode = strings.ToLower(os.Getenv("DEV_MODE")) == "true"
+	KafkaBrokerAddress = fmt.Sprintf("%v:%v", KafkaHost, KafkaPort)
 	Initialized = true
 }
 

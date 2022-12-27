@@ -2,7 +2,6 @@ package messagequeue
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/Shopify/sarama"
 	"github.com/jiradeto/gh-scanner/app/environments"
@@ -19,8 +18,7 @@ func (m *messageQueueClient) NewProducer() (*Producer, error) {
 	config.Producer.Return.Successes = true
 	config.Producer.RequiredAcks = sarama.WaitForAll
 	config.Producer.Retry.Max = 5
-	brokerAddress := strings.Join([]string{environments.KafkaHost, environments.KafkaPort}, ":")
-	conn, err := sarama.NewSyncProducer([]string{brokerAddress}, config)
+	conn, err := sarama.NewSyncProducer([]string{environments.KafkaBrokerAddress}, config)
 	if err != nil {
 		return nil, gerrors.NewInternalError(err)
 	}
