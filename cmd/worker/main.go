@@ -10,7 +10,7 @@ import (
 	repositoryrepo "github.com/jiradeto/gh-scanner/app/infrastructure/repos/repository"
 	repositoryusecase "github.com/jiradeto/gh-scanner/app/usecases/repository"
 	"github.com/jiradeto/gh-scanner/app/utils/loggers"
-	workerhandler "github.com/jiradeto/gh-scanner/app/worker/handler"
+	scannerworker "github.com/jiradeto/gh-scanner/app/worker"
 	"github.com/spf13/cobra"
 )
 
@@ -56,11 +56,11 @@ func startApp(cmd *cobra.Command, _ []string) {
 
 	repositoryRepo := repositoryrepo.New(db)
 	repositoryUsecase := repositoryusecase.New(repositoryRepo, mq)
-	workerHandler := &workerhandler.ScannerWorker{
+	scannerWorker := &scannerworker.ScannerWorker{
 		KafkaTopic:        environments.KafkaTopic,
 		RepositoryUsecase: repositoryUsecase,
 	}
-	if err := workerhandler.RegisterScannerWorker(workerHandler); err != nil {
+	if err := scannerworker.RegisterScannerWorker(scannerWorker); err != nil {
 		panic(err)
 	}
 

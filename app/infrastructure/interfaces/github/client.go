@@ -10,16 +10,19 @@ import (
 	"github.com/rs/xid"
 )
 
+// directory in which the github repository will be cloned
+// (this should be listed in gitignore)
+const rootDir = "scanning"
+
 type GithubClient interface {
 	Clone() error
-	ClearnDirectory()
+	CleanDirectory()
 	GetOutputPath() *string
 	Scan()
 	GetRules()
 }
 
 type githubClient struct {
-	RootDir    string
 	URL        string
 	OutputPath *string
 }
@@ -34,7 +37,7 @@ func (c *githubClient) GetOutputPath() *string {
 	return c.OutputPath
 }
 
-func (c *githubClient) ClearnDirectory() {
+func (c *githubClient) CleanDirectory() {
 	if c.OutputPath != nil {
 		os.RemoveAll(*c.OutputPath)
 	}
@@ -42,7 +45,7 @@ func (c *githubClient) ClearnDirectory() {
 
 func (c *githubClient) Clone() error {
 	repoID := xid.New().String()
-	fullPath := fmt.Sprintf("%v/%v", c.RootDir, repoID)
+	fullPath := fmt.Sprintf("%v/%v", rootDir, repoID)
 
 	_, err := git.PlainClone(fullPath, false, &git.CloneOptions{
 		URL:      c.URL,
@@ -57,9 +60,8 @@ func (c *githubClient) Clone() error {
 
 }
 
-func New(rootDir string, url string) GithubClient {
+func New(url string) GithubClient {
 	return &githubClient{
-		RootDir: rootDir,
-		URL:     url,
+		URL: url,
 	}
 }

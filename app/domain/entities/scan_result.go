@@ -68,3 +68,30 @@ func (source ScanResult) MapResponse() map[string]interface{} {
 
 	return dest
 }
+
+type ScannerRule struct {
+	Type        string   `json:"type"`
+	RuleId      string   `json:"rule_id"`
+	Word        string   `json:"word"`
+	Description string   `json:"description"`
+	Severity    Severity `json:"severity"`
+}
+
+func NewScanFunding(filePath string, lineNumber int64, rule ScannerRule) ScanFinding {
+	return ScanFinding{
+		Type:   rule.Type,
+		RuleID: rule.RuleId,
+		Location: Location{
+			Path: filePath,
+			Positions: Positions{
+				Begin: Begin{
+					Line: lineNumber,
+				},
+			},
+		},
+		Metadata: Metadata{
+			Description: rule.Description,
+			Severity:    rule.Severity,
+		},
+	}
+}
