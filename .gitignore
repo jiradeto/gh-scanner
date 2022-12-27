@@ -1,11 +1,5 @@
-#vendor
-app/app
-app/tmp
-coverage.out
-.coverage.txt
 .DS_Store
 
-# IntelliJ project files
 .idea
 *.iml
 *secrets.yaml
@@ -16,7 +10,6 @@ gen
 tmp
 scanning
 .testing
-.testing_file
 
 .vscode
 .env
