@@ -34,7 +34,7 @@ func (c *FindOneRepositoryInput) Validate() error {
 
 // FindOneRepositoryInput is an input for FindOneRepository
 type FindOneRepositoryInput struct {
-	ID *string `validate:"required"`
+	ID *string `validate:"required,uuid"`
 }
 
 func (uc *useCase) FindOneRepository(ctx context.Context, input FindOneRepositoryInput) (*entities.Repository, error) {

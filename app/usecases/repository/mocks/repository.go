@@ -10,7 +10,7 @@ import (
 
 	gomock "github.com/golang/mock/gomock"
 	entities "github.com/jiradeto/gh-scanner/app/domain/entities"
-	repository "github.com/jiradeto/gh-scanner/app/usecases/repository"
+	repositoryusecase "github.com/jiradeto/gh-scanner/app/usecases/repository"
 )
 
 // Mocks is a mock of UseCase interface.
@@ -37,7 +37,7 @@ func (m *Mocks) EXPECT() *MocksMockRecorder {
 }
 
 // CreateOneRepository mocks base method.
-func (m *Mocks) CreateOneRepository(ctx context.Context, input repository.CreateOneRepositoryInput) (*entities.Repository, error) {
+func (m *Mocks) CreateOneRepository(ctx context.Context, input repositoryusecase.CreateOneRepositoryInput) (*entities.Repository, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateOneRepository", ctx, input)
 	ret0, _ := ret[0].(*entities.Repository)
@@ -52,7 +52,7 @@ func (mr *MocksMockRecorder) CreateOneRepository(ctx, input interface{}) *gomock
 }
 
 // DeleteOneRepository mocks base method.
-func (m *Mocks) DeleteOneRepository(ctx context.Context, input repository.DeleteOneRepositoryInput) error {
+func (m *Mocks) DeleteOneRepository(ctx context.Context, input repositoryusecase.DeleteOneRepositoryInput) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteOneRepository", ctx, input)
 	ret0, _ := ret[0].(error)
@@ -66,7 +66,7 @@ func (mr *MocksMockRecorder) DeleteOneRepository(ctx, input interface{}) *gomock
 }
 
 // FindAllRepositories mocks base method.
-func (m *Mocks) FindAllRepositories(ctx context.Context, input repository.FindAllRepositoriesInput) ([]*entities.Repository, error) {
+func (m *Mocks) FindAllRepositories(ctx context.Context, input repositoryusecase.FindAllRepositoriesInput) ([]*entities.Repository, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindAllRepositories", ctx, input)
 	ret0, _ := ret[0].([]*entities.Repository)
@@ -81,7 +81,7 @@ func (mr *MocksMockRecorder) FindAllRepositories(ctx, input interface{}) *gomock
 }
 
 // FindAllScanResults mocks base method.
-func (m *Mocks) FindAllScanResults(ctx context.Context, input repository.FindAllScanResultsInput) ([]*entities.ScanResult, error) {
+func (m *Mocks) FindAllScanResults(ctx context.Context, input repositoryusecase.FindAllScanResultsInput) ([]*entities.ScanResult, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindAllScanResults", ctx, input)
 	ret0, _ := ret[0].([]*entities.ScanResult)
@@ -96,7 +96,7 @@ func (mr *MocksMockRecorder) FindAllScanResults(ctx, input interface{}) *gomock.
 }
 
 // FindOneRepository mocks base method.
-func (m *Mocks) FindOneRepository(ctx context.Context, input repository.FindOneRepositoryInput) (*entities.Repository, error) {
+func (m *Mocks) FindOneRepository(ctx context.Context, input repositoryusecase.FindOneRepositoryInput) (*entities.Repository, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindOneRepository", ctx, input)
 	ret0, _ := ret[0].(*entities.Repository)
@@ -111,7 +111,7 @@ func (mr *MocksMockRecorder) FindOneRepository(ctx, input interface{}) *gomock.C
 }
 
 // FindOneScanResult mocks base method.
-func (m *Mocks) FindOneScanResult(ctx context.Context, input repository.FindOneScanResultInput) (*entities.ScanResult, error) {
+func (m *Mocks) FindOneScanResult(ctx context.Context, input repositoryusecase.FindOneScanResultInput) (*entities.ScanResult, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindOneScanResult", ctx, input)
 	ret0, _ := ret[0].(*entities.ScanResult)
@@ -126,7 +126,7 @@ func (mr *MocksMockRecorder) FindOneScanResult(ctx, input interface{}) *gomock.C
 }
 
 // StartScanner mocks base method.
-func (m *Mocks) StartScanner(ctx context.Context, input repository.StartScannerInput) (*entities.ScanResult, error) {
+func (m *Mocks) StartScanner(ctx context.Context, input repositoryusecase.StartScannerInput) (*entities.ScanResult, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "StartScanner", ctx, input)
 	ret0, _ := ret[0].(*entities.ScanResult)
@@ -141,7 +141,7 @@ func (mr *MocksMockRecorder) StartScanner(ctx, input interface{}) *gomock.Call {
 }
 
 // UpdateOneRepository mocks base method.
-func (m *Mocks) UpdateOneRepository(ctx context.Context, input repository.UpdateOneRepositoryInput) (*entities.Repository, error) {
+func (m *Mocks) UpdateOneRepository(ctx context.Context, input repositoryusecase.UpdateOneRepositoryInput) (*entities.Repository, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateOneRepository", ctx, input)
 	ret0, _ := ret[0].(*entities.Repository)
@@ -156,7 +156,7 @@ func (mr *MocksMockRecorder) UpdateOneRepository(ctx, input interface{}) *gomock
 }
 
 // UpdateOneScanResult mocks base method.
-func (m *Mocks) UpdateOneScanResult(ctx context.Context, input repository.UpdateOneScanResultInput) (*entities.ScanResult, error) {
+func (m *Mocks) UpdateOneScanResult(ctx context.Context, input repositoryusecase.UpdateOneScanResultInput) (*entities.ScanResult, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateOneScanResult", ctx, input)
 	ret0, _ := ret[0].(*entities.ScanResult)

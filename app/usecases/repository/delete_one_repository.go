@@ -33,7 +33,7 @@ func (c *DeleteOneRepositoryInput) Validate() error {
 
 // DeleteOneRepositoryInput is an input for DeleteOneRepository
 type DeleteOneRepositoryInput struct {
-	ID *string `validate:"required"`
+	ID *string `validate:"required,uuid"`
 }
 
 func (uc *useCase) DeleteOneRepository(ctx context.Context, input DeleteOneRepositoryInput) error {

@@ -34,7 +34,7 @@ func (c *FindOneScanResultInput) Validate() error {
 
 // FindOneScanResult is an input for FindOneScanResult
 type FindOneScanResultInput struct {
-	ID *string `validate:"required"`
+	ID *string `validate:"required,uuid"`
 }
 
 func (uc *useCase) FindOneScanResult(ctx context.Context, input FindOneScanResultInput) (*entities.ScanResult, error) {

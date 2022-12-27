@@ -2,6 +2,7 @@ package repositoriyepo
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/jiradeto/gh-scanner/app/domain/entities"
 	"github.com/jiradeto/gh-scanner/app/infrastructure/models"
@@ -17,12 +18,14 @@ type CreateOneScanResultInput struct {
 // CreateOneScanResult is a function for creating one ScanResult from data model
 func (repo *repo) CreateOneScanResult(tx *gorm.DB, input CreateOneScanResultInput) (*entities.ScanResult, error) {
 	const errLocation = "[ScanResult repository/create one ScanResult] %s"
-
 	scanResultModel, err := new(models.ScanResult).FromEntity(input.ScanResultEntity)
 	if err != nil {
 		return nil, errors.Wrapf(err, errLocation, "unable to parse an entity to model")
 	}
 
+	if input.ScanResultEntity.Status.Is(entities.ScanResultStatusQueued) {
+		scanResultModel.QueuedAt = time.Now()
+	}
 	query := repo.selectDB(tx)
 	result := query.Create(scanResultModel)
 	if result.Error != nil {

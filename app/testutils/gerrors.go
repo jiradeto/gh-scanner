@@ -9,8 +9,7 @@ import (
 
 // AssertError is a function for asserting if actual error and want error are equal
 func AssertError(t *testing.T, prefix string, actualErr error, wantErr error) bool {
-	// true = test ok
-	// false = unexpected assertion
+
 	if actualErr == nil {
 		if wantErr == nil {
 			return true

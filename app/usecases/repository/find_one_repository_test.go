@@ -15,10 +15,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreateOneRepositoryInputValidate(t *testing.T) {
+func TestFindOneRepositoryInputValidate(t *testing.T) {
 	type fields struct {
-		Name *string
-		URL  *string
+		ID *string
 	}
 	tests := []struct {
 		name    string
@@ -31,57 +30,31 @@ func TestCreateOneRepositoryInputValidate(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "missing name required fields",
+			name: "empty ID",
 			fields: fields{
-				Name: pointer.ToString("foo"),
+				ID: pointer.ToString(""),
 			},
 			wantErr: true,
 		},
 		{
-			name: "when name is empty",
+			name: "invalid uuid format",
 			fields: fields{
-				Name: pointer.ToString(""),
+				ID: pointer.ToString("foo_uuid"),
 			},
 			wantErr: true,
 		},
 		{
-			name: "when provide invalid url",
+			name: "happy case",
 			fields: fields{
-				Name: pointer.ToString("foo_name"),
-				URL:  pointer.ToString("foo_url"),
-			},
-			wantErr: true,
-		},
-		{
-			name: "when given url is not github",
-			fields: fields{
-				Name: pointer.ToString("foo_name"),
-				URL:  pointer.ToString("https://example.com/foo"),
-			},
-			wantErr: true,
-		},
-		{
-			name: "success case",
-			fields: fields{
-				Name: pointer.ToString("foo_name"),
-				URL:  pointer.ToString("https://github.com/foo"),
-			},
-			wantErr: false,
-		},
-		{
-			name: "success case on non-https",
-			fields: fields{
-				Name: pointer.ToString("foo_name"),
-				URL:  pointer.ToString("http://github.com/foo"),
+				ID: pointer.ToString("7827f71a-df70-4c16-964f-d65836ec4312"),
 			},
 			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			f := &repositoryusecase.CreateOneRepositoryInput{
-				Name: tt.fields.Name,
-				URL:  tt.fields.URL,
+			f := &repositoryusecase.FindOneRepositoryInput{
+				ID: tt.fields.ID,
 			}
 			if err := f.Validate(); (err != nil) != tt.wantErr {
 				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
@@ -90,13 +63,14 @@ func TestCreateOneRepositoryInputValidate(t *testing.T) {
 	}
 }
 
-func Test_useCase_CreateOneRepository(t *testing.T) {
+func Test_useCase_FindOneRepository(t *testing.T) {
 	type args struct {
 		ctx   context.Context
-		input repositoryusecase.CreateOneRepositoryInput
+		input repositoryusecase.FindOneRepositoryInput
 	}
+	mockUUID := "7827f71a-df70-4c16-964f-d65836ec4312"
 	repository := entities.Repository{
-		ID:   pointer.ToString("foo_id"),
+		ID:   pointer.ToString(mockUUID),
 		Name: pointer.ToString("foo_name"),
 		URL:  pointer.ToString("https://github.com/example"),
 	}
@@ -112,44 +86,36 @@ func Test_useCase_CreateOneRepository(t *testing.T) {
 			fields: fields{
 				CreateRepositoryRepo: func(ctrl *gomock.Controller) repositoryrepo.Repo {
 					mock := repositoryrepomocks.NewMocks(ctrl)
-					mock.EXPECT().CreateOneRepository(gomock.Any(), repositoryrepo.CreateOneRepositoryInput{
-						RepositoryEntity: &entities.Repository{
-							Name: pointer.ToString("foo_name"),
-							URL:  pointer.ToString("https://github.com/example"),
-						},
+					mock.EXPECT().FindOneRepository(gomock.Any(), repositoryrepo.FindOneRepositoryInput{
+						ID: pointer.ToString(mockUUID),
 					}).Return(&repository, nil)
 					return mock
 				},
 			},
 			args: args{
 				ctx: context.Background(),
-				input: repositoryusecase.CreateOneRepositoryInput{
-					Name: pointer.ToString("foo_name"),
-					URL:  pointer.ToString("https://github.com/example"),
+				input: repositoryusecase.FindOneRepositoryInput{
+					ID: pointer.ToString(mockUUID),
 				},
 			},
 			want:    &repository,
 			wantErr: nil,
 		},
 		{
-			name: "error from repository",
+			name: "failed to find one repository",
 			fields: fields{
 				CreateRepositoryRepo: func(ctrl *gomock.Controller) repositoryrepo.Repo {
 					mock := repositoryrepomocks.NewMocks(ctrl)
-					mock.EXPECT().CreateOneRepository(gomock.Any(), repositoryrepo.CreateOneRepositoryInput{
-						RepositoryEntity: &entities.Repository{
-							Name: pointer.ToString("foo_name"),
-							URL:  pointer.ToString("https://github.com/example"),
-						},
+					mock.EXPECT().FindOneRepository(gomock.Any(), repositoryrepo.FindOneRepositoryInput{
+						ID: pointer.ToString(mockUUID),
 					}).Return(nil, errors.New("mock error"))
 					return mock
 				},
 			},
 			args: args{
 				ctx: context.Background(),
-				input: repositoryusecase.CreateOneRepositoryInput{
-					Name: pointer.ToString("foo_name"),
-					URL:  pointer.ToString("https://github.com/example"),
+				input: repositoryusecase.FindOneRepositoryInput{
+					ID: pointer.ToString(mockUUID),
 				},
 			},
 			want:    nil,
@@ -161,12 +127,12 @@ func Test_useCase_CreateOneRepository(t *testing.T) {
 			h := initTest(t, &tt.fields)
 			defer h.done()
 
-			got, err := h.uc.CreateOneRepository(tt.args.ctx, tt.args.input)
+			got, err := h.uc.FindOneRepository(tt.args.ctx, tt.args.input)
 
-			if !testutils.AssertError(t, "useCase.CreateOneRepository()", err, tt.wantErr) {
+			if !testutils.AssertError(t, "useCase.FindOneRepository()", err, tt.wantErr) {
 				return
 			}
-			assert.Equal(t, tt.want, got, "useCase.CreateOneRepository()")
+			assert.Equal(t, tt.want, got, "useCase.FindOneRepository()")
 		})
 	}
 }

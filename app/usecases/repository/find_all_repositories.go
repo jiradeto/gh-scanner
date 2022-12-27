@@ -35,12 +35,12 @@ func (c *FindAllRepositoriesInput) Validate() error {
 
 // FindAllRepositoriesInput is an input for FindAllRepositories
 type FindAllRepositoriesInput struct {
-	Name            *string
-	URL             *string
+	Name            *string `validate:"omitempty,max=128"`
+	URL             *string `validate:"omitempty,max=128"`
+	Offset          *int    `validate:"omitempty,min=1,max=100"`
+	Limit           *int    `validate:"omitempty,min=0"`
 	FromCreatedDate *time.Time
 	ToCreatedDate   *time.Time
-	Offset          *int
-	Limit           *int
 }
 
 func (uc *useCase) FindAllRepositories(ctx context.Context, input FindAllRepositoriesInput) ([]*entities.Repository, error) {

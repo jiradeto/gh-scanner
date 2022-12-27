@@ -35,8 +35,8 @@ func (c *UpdateOneScanResultInput) Validate() error {
 
 // UpdateOneScanResultInput is an input for UpdateOneScanResult
 type UpdateOneScanResultInput struct {
-	ID         *string `validate:"required"`
-	Status     *string
+	ID         *string `validate:"required,uuid"`
+	Status     *string `validate:"required,min=1,oneof='queued' 'in_progress' 'success' 'failure'"`
 	Findings   []entities.ScanFinding
 	QueuedAt   *time.Time
 	ScanningAt *time.Time

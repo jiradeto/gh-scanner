@@ -18,8 +18,10 @@ start: start-service start-build-app
 
 lint: 
 	@echo $(GOLINT) -set_exit_status ${PKG_LIST}
+
 test:
 	@go test ${PKG_LIST}
+
 format:
 	go fmt ./app/...
 
