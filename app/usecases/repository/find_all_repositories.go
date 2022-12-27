@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/jiradeto/gh-scanner/app/constants"
-	"github.com/jiradeto/gh-scanner/app/domain/entities"
+	"github.com/jiradeto/gh-scanner/app/entities"
 	repositoryrepo "github.com/jiradeto/gh-scanner/app/infrastructure/repos/repository"
 	"github.com/jiradeto/gh-scanner/app/utils/gerrors"
 	"github.com/pkg/errors"

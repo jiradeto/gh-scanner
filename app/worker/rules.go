@@ -1,7 +1,7 @@
 package scannerworker
 
 import (
-	"github.com/jiradeto/gh-scanner/app/domain/entities"
+	"github.com/jiradeto/gh-scanner/app/entities"
 )
 
 func GetScannerRules() []entities.ScannerRule {

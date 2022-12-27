@@ -3,7 +3,7 @@ package repositoriyepo
 import (
 	"fmt"
 
-	"github.com/jiradeto/gh-scanner/app/domain/entities"
+	"github.com/jiradeto/gh-scanner/app/entities"
 	"github.com/jiradeto/gh-scanner/app/infrastructure/models"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"

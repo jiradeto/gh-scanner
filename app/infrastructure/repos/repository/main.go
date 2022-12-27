@@ -1,7 +1,7 @@
 package repositoriyepo
 
 import (
-	"github.com/jiradeto/gh-scanner/app/domain/entities"
+	"github.com/jiradeto/gh-scanner/app/entities"
 	"gorm.io/gorm"
 )
 

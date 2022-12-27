@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/Shopify/sarama"
-	"github.com/jiradeto/gh-scanner/app/domain/entities"
+	"github.com/jiradeto/gh-scanner/app/entities"
 	"github.com/jiradeto/gh-scanner/app/environments"
 	"github.com/jiradeto/gh-scanner/app/infrastructure/interfaces/messagequeue"
 	repositoryusecase "github.com/jiradeto/gh-scanner/app/usecases/repository"

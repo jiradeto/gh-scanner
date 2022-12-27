@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/jiradeto/gh-scanner/app/constants"
-	"github.com/jiradeto/gh-scanner/app/domain/entities"
+	"github.com/jiradeto/gh-scanner/app/entities"
 	"github.com/jiradeto/gh-scanner/app/infrastructure/models"
 	"github.com/jiradeto/gh-scanner/app/utils/gerrors"
 	"github.com/pkg/errors"

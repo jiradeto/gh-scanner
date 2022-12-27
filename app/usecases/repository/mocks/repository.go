@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	entities "github.com/jiradeto/gh-scanner/app/domain/entities"
+	entities "github.com/jiradeto/gh-scanner/app/entities"
 	repositoryusecase "github.com/jiradeto/gh-scanner/app/usecases/repository"
 )
 

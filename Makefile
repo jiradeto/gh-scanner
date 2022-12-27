@@ -2,8 +2,12 @@ PKG := github.com/jiradeto/gh-scanner
 PKG_LIST := $(shell go list ${PKG}/...)
 GOLINT?=		go run golang.org/x/lint/golint
 
-setup:
-	docker network create gh-scanner
+# create docker network if not exists
+setup-docker-network:
+	docker network ls|grep gh-scanner > /dev/null || docker network create gh-scanner
+copy-env:
+	cp .env.example .env
+setup: setup-docker-network copy-env
 start-service:
 	docker-compose -f docker-compose-service.yaml up -d
 stop-service:

@@ -7,7 +7,7 @@ import (
 	"github.com/AlekSi/pointer"
 	"github.com/golang/mock/gomock"
 	"github.com/jiradeto/gh-scanner/app/constants"
-	"github.com/jiradeto/gh-scanner/app/domain/entities"
+	"github.com/jiradeto/gh-scanner/app/entities"
 	repositoryrepo "github.com/jiradeto/gh-scanner/app/infrastructure/repos/repository"
 	repositoryrepomocks "github.com/jiradeto/gh-scanner/app/infrastructure/repos/repository/mocks"
 	"github.com/jiradeto/gh-scanner/app/testutils"

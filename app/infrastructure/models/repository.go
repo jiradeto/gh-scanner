@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/copier"
-	"github.com/jiradeto/gh-scanner/app/domain/entities"
+	"github.com/jiradeto/gh-scanner/app/entities"
 )
 
 // Repository models
