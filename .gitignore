@@ -1,0 +1,24 @@
+#vendor
+app/app
+app/tmp
+coverage.out
+.coverage.txt
+.DS_Store
+
+# IntelliJ project files
+.idea
+*.iml
+*secrets.yaml
+*secret.yaml
+*.yaml.zip
+out
+gen
+tmp
+scanning
+.testing
+.testing_file
+
+.vscode
+.env
+db
+dist

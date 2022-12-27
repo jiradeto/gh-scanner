@@ -1,0 +1,30 @@
+version: '3'
+services:
+  gh-scanner-worker:
+    image: gh-scanner-worker:latest
+    container_name: gh-scanner-worker
+    privileged: true
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    restart: always
+    networks:
+      - gh-scanner
+  gh-scanner-api:
+    image: gh-scanner-api
+    container_name: gh-scanner-api
+    privileged: true
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - gh-scanner-worker
+    networks:
+      - gh-scanner
+networks:
+  gh-scanner:
+    external:
+      name: gh-scanner

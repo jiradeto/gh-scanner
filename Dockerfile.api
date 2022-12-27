@@ -1,0 +1,12 @@
+FROM golang:alpine as builder
+WORKDIR /app
+COPY . .
+RUN go mod download
+RUN go build -o dist/api cmd/api/main.go
+
+FROM golang:alpine 
+COPY --from=builder /app/.env /app/.env
+COPY --from=builder /app/dist/api /app/api
+WORKDIR /app
+CMD ["/app/api", "--production", "--check-migration"]
+# CMD ["tail", "-f", "/dev/null"]

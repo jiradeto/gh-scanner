@@ -1,0 +1,13 @@
+FROM golang:alpine as builder
+RUN apk add build-base
+WORKDIR /app
+COPY . .
+RUN go mod download
+RUN go build -o dist/worker cmd/worker/main.go
+
+FROM golang:alpine 
+COPY --from=builder /app/.env /app/.env
+COPY --from=builder /app/dist/worker /app/worker
+WORKDIR /app
+CMD ["/app/worker", "--production"]
+# CMD ["tail", "-f", "/dev/null"]

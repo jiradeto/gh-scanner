@@ -1,0 +1,56 @@
+version: '3'
+services:
+  ghs-db:
+    container_name: ghs-db
+    image: postgres:12.2-alpine
+    restart: always
+    command: ["postgres", "-c", "log_statement=all"]
+    volumes:
+      - ./initdb.sh:/docker-entrypoint-initdb.d/
+      - ./db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dbpassword
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: gh_scanner
+    networks:
+      - gh-scanner
+
+  zookeeper:
+    container_name: ghs-zookeeper
+    image: confluentinc/cp-zookeeper:5.5.1
+    depends_on:
+      - ghs-db
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - gh-scanner
+
+  broker:
+    container_name: broker
+    image: confluentinc/cp-server:5.5.1
+    restart: always
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:29092
+    networks:
+      - gh-scanner
+networks:
+  gh-scanner:
+    external:
+      name: gh-scanner
