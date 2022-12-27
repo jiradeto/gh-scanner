@@ -37,7 +37,6 @@ func (c *FindAllRepositoriesInput) Validate() error {
 type FindAllRepositoriesInput struct {
 	Name            *string `validate:"omitempty,max=128"`
 	URL             *string `validate:"omitempty,max=128"`
-	Offset          *int    `validate:"omitempty,min=1,max=100"`
 	Limit           *int    `validate:"omitempty,min=0"`
 	FromCreatedDate *time.Time
 	ToCreatedDate   *time.Time
@@ -52,7 +51,6 @@ func (uc *useCase) FindAllRepositories(ctx context.Context, input FindAllReposit
 		URL:             input.URL,
 		FromCreatedDate: input.FromCreatedDate,
 		ToCreatedDate:   input.ToCreatedDate,
-		Offset:          input.Offset,
 		Limit:           input.Limit,
 	})
 	if err != nil {

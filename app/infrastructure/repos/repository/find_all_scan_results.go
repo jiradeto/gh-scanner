@@ -17,7 +17,6 @@ type FindAllScanResultsInput struct {
 	RepositoryID    *string
 	FromCreatedDate *time.Time
 	ToCreatedDate   *time.Time
-	Offset          *int
 	Limit           *int
 }
 
@@ -40,10 +39,6 @@ func (repo *repo) FindAllScanResults(tx *gorm.DB, input FindAllScanResultsInput)
 
 	if input.Limit != nil {
 		query = query.Limit(*input.Limit)
-	}
-
-	if input.Offset != nil {
-		query = query.Offset(*input.Offset)
 	}
 
 	result := query.Order("created_at asc").Find(&resultModel)

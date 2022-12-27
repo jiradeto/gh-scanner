@@ -14,7 +14,6 @@ import (
 
 type FindAllScanResultsRequest struct {
 	Limit           *int       `form:"limit,default=20"`
-	Offset          *int       `form:"start,default=0"`
 	FromCreatedDate *time.Time `form:"from"`
 	ToCreatedDate   *time.Time `form:"to"`
 	RepositoryID    *string    `form:"repositoryID"`
@@ -36,7 +35,6 @@ func (handler *httpHandler) FindAllScanResults(c *gin.Context) {
 		FromCreatedDate: req.FromCreatedDate,
 		ToCreatedDate:   req.ToCreatedDate,
 		Limit:           req.Limit,
-		Offset:          req.Offset,
 		RepositoryID:    req.RepositoryID,
 	})
 

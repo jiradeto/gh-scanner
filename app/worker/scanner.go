@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"encoding/json"
+	"fmt"
 	"os"
 	"strings"
 	"time"
@@ -16,6 +17,7 @@ import (
 	repositoryusecase "github.com/jiradeto/gh-scanner/app/usecases/repository"
 	"github.com/jiradeto/gh-scanner/app/utils/fileutils"
 	"github.com/jiradeto/gh-scanner/app/utils/loggers"
+	"github.com/rs/xid"
 )
 
 func searchByLine(fileName string, outPath string) ([]entities.ScanFinding, error) {
@@ -51,6 +53,7 @@ func searchByLine(fileName string, outPath string) ([]entities.ScanFinding, erro
 }
 
 func (s *ScannerWorker) RunScanner() error {
+	requestID := xid.New().String()
 	github := github.New(s.configs.URL)
 	defer github.CleanDirectory()
 	err := github.Clone()
@@ -62,6 +65,13 @@ func (s *ScannerWorker) RunScanner() error {
 	if err != nil {
 		return err
 	}
+	start := time.Now()
+	logInfo := map[string]interface{}{
+		"url":        s.configs.URL,
+		"totalFiles": len(files),
+	}
+	loggers.Text.Info(fmt.Sprintf("Scanner %v - started", requestID))
+	loggers.JSON.Info(logInfo)
 	var allFindings []entities.ScanFinding
 	for _, file := range files {
 		findings, err := searchByLine(file, outputDirectory)
@@ -70,13 +80,20 @@ func (s *ScannerWorker) RunScanner() error {
 		}
 		allFindings = append(allFindings, findings...)
 	}
-
 	s.findings = allFindings
+	logInfo = map[string]interface{}{
+		"url":           s.configs.URL,
+		"totalFiles":    len(files),
+		"totalFindings": len(allFindings),
+		"totalTime":     time.Since(start),
+	}
+	loggers.Text.Info(fmt.Sprintf("Scanner #%v - finished", requestID))
+	loggers.JSON.Info(logInfo)
 	return nil
 }
 
 func (s *ScannerWorker) dequeueScanResult() (*entities.ScanResult, error) {
-	scanResult, err := w.RepositoryUsecase.UpdateOneScanResult(context.Background(),
+	scanResult, err := s.RepositoryUsecase.UpdateOneScanResult(context.Background(),
 		repositoryusecase.UpdateOneScanResultInput{
 			ID:       pointer.ToString(s.configs.ResultId),
 			Status:   pointer.ToString(entities.ScanResultStatusInProgress.String()),

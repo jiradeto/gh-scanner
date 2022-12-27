@@ -16,7 +16,6 @@ type FindAllRepositoriesRequest struct {
 	Name            *string    `form:"name"`
 	URL             *string    `form:"url"`
 	Limit           *int       `form:"limit,default=20"`
-	Offset          *int       `form:"start,default=0"`
 	FromCreatedDate *time.Time `form:"from"`
 	ToCreatedDate   *time.Time `form:"to"`
 }
@@ -38,7 +37,6 @@ func (handler *httpHandler) FindAllRepositories(c *gin.Context) {
 		FromCreatedDate: req.FromCreatedDate,
 		ToCreatedDate:   req.ToCreatedDate,
 		Limit:           req.Limit,
-		Offset:          req.Offset,
 	})
 	if err != nil {
 		response.ResponseError(c, err)

@@ -18,7 +18,6 @@ type FindAllRepositoriesInput struct {
 	URL             *string
 	FromCreatedDate *time.Time
 	ToCreatedDate   *time.Time
-	Offset          *int
 	Limit           *int
 }
 
@@ -45,10 +44,6 @@ func (repo *repo) FindAllRepositories(tx *gorm.DB, input FindAllRepositoriesInpu
 
 	if input.Limit != nil {
 		query = query.Limit(*input.Limit)
-	}
-
-	if input.Offset != nil {
-		query = query.Offset(*input.Offset)
 	}
 
 	result := query.Order("created_at asc").Find(&resultModel)

@@ -35,9 +35,8 @@ func (c *FindAllScanResultsInput) Validate() error {
 
 // FindAllScanResultsInput is an input for FindAllScanResults
 type FindAllScanResultsInput struct {
-	RepositoryID    *string
-	Offset          *int `validate:"omitempty,min=1,max=100"`
-	Limit           *int `validate:"omitempty,min=0"`
+	RepositoryID    *string `validate:"omitempty,uuid"`
+	Limit           *int    `validate:"omitempty,min=0"`
 	FromCreatedDate *time.Time
 	ToCreatedDate   *time.Time
 }
@@ -49,7 +48,6 @@ func (uc *useCase) FindAllScanResults(ctx context.Context, input FindAllScanResu
 	scanResults, err := uc.RepositoryRepo.FindAllScanResults(nil, repositoryrepo.FindAllScanResultsInput{
 		FromCreatedDate: input.FromCreatedDate,
 		ToCreatedDate:   input.ToCreatedDate,
-		Offset:          input.Offset,
 		Limit:           input.Limit,
 		RepositoryID:    input.RepositoryID,
 	})

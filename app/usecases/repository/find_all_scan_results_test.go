@@ -19,7 +19,6 @@ import (
 func TestFindAllScanResultsInputValidate(t *testing.T) {
 	type fields struct {
 		RepositoryID    *string
-		Offset          *int
 		Limit           *int
 		FromCreatedDate *time.Time
 		ToCreatedDate   *time.Time
@@ -31,23 +30,12 @@ func TestFindAllScanResultsInputValidate(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "offset is less than one",
+			name: "repository id is not valid uuid",
 			fields: fields{
-				Offset: pointer.ToInt(0),
-			},
-			wantErr: true,
-		},
-		{
-			name: "offset is less than one",
-			fields: fields{
-				Offset: pointer.ToInt(0),
-			},
-			wantErr: true,
-		},
-		{
-			name: "offset is greater than max limit",
-			fields: fields{
-				Offset: pointer.ToInt(300),
+				RepositoryID:    pointer.ToString("foo_id"),
+				Limit:           pointer.ToInt(1),
+				FromCreatedDate: &now,
+				ToCreatedDate:   &now,
 			},
 			wantErr: true,
 		},
@@ -55,7 +43,6 @@ func TestFindAllScanResultsInputValidate(t *testing.T) {
 			name: "happy case",
 			fields: fields{
 				RepositoryID:    pointer.ToString("7827f71a-df70-4c16-964f-d65836ec4312"),
-				Offset:          pointer.ToInt(1),
 				Limit:           pointer.ToInt(1),
 				FromCreatedDate: &now,
 				ToCreatedDate:   &now,
@@ -66,7 +53,7 @@ func TestFindAllScanResultsInputValidate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &repositoryusecase.FindAllScanResultsInput{
-				Offset:          tt.fields.Offset,
+				RepositoryID:    tt.fields.RepositoryID,
 				Limit:           tt.fields.Limit,
 				FromCreatedDate: tt.fields.FromCreatedDate,
 				ToCreatedDate:   tt.fields.ToCreatedDate,

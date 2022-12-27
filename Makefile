@@ -22,9 +22,6 @@ lint:
 test:
 	@go test ${PKG_LIST}
 
-format:
-	go fmt ./app/...
-
 mock/all:
 	make mock/usecases m=repository
 	make mock/repos m=repository

@@ -20,7 +20,6 @@ func TestFindAllRepositoriesInputValidate(t *testing.T) {
 	type fields struct {
 		Name            *string
 		URL             *string
-		Offset          *int
 		Limit           *int
 		FromCreatedDate *time.Time
 		ToCreatedDate   *time.Time
@@ -39,27 +38,7 @@ func TestFindAllRepositoriesInputValidate(t *testing.T) {
 		fields  fields
 		wantErr bool
 	}{
-		{
-			name: "offset is less than one",
-			fields: fields{
-				Offset: pointer.ToInt(0),
-			},
-			wantErr: true,
-		},
-		{
-			name: "offset is less than one",
-			fields: fields{
-				Offset: pointer.ToInt(0),
-			},
-			wantErr: true,
-		},
-		{
-			name: "offset is greater than max limit",
-			fields: fields{
-				Offset: pointer.ToInt(300),
-			},
-			wantErr: true,
-		},
+
 		{
 			name: "name is longer than max limit",
 			fields: fields{
@@ -79,7 +58,6 @@ func TestFindAllRepositoriesInputValidate(t *testing.T) {
 			fields: fields{
 				Name:            pointer.ToString("foo_name"),
 				URL:             pointer.ToString("foo_url"),
-				Offset:          pointer.ToInt(1),
 				Limit:           pointer.ToInt(1),
 				FromCreatedDate: &now,
 				ToCreatedDate:   &now,
@@ -92,7 +70,6 @@ func TestFindAllRepositoriesInputValidate(t *testing.T) {
 			f := &repositoryusecase.FindAllRepositoriesInput{
 				Name:            tt.fields.Name,
 				URL:             tt.fields.URL,
-				Offset:          tt.fields.Offset,
 				Limit:           tt.fields.Limit,
 				FromCreatedDate: tt.fields.FromCreatedDate,
 				ToCreatedDate:   tt.fields.ToCreatedDate,
