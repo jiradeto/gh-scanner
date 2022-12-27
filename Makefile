@@ -8,13 +8,15 @@ start-service:
 	docker-compose -f docker-compose-service.yaml up -d
 stop-service:
 	docker-compose -f docker-compose-service.yaml down
-start-build-app:
+start-app-build:
 	docker-compose -f docker-compose-app.yaml up -d --build
+start-service-build:
+	docker-compose -f docker-compose-service.yaml up -d --build
 start-app:
 	docker-compose -f docker-compose-app.yaml up -d
 stop-app:
 	docker-compose -f docker-compose-app.yaml down
-start: start-service start-build-app
+start: start-service start-app-build
 
 lint: 
 	@echo $(GOLINT) -set_exit_status ${PKG_LIST}
