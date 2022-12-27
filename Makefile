@@ -1,5 +1,5 @@
 PKG := github.com/jiradeto/gh-scanner
-PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
+PKG_LIST := $(shell go list ${PKG}/...)
 GOLINT?=		go run golang.org/x/lint/golint
 
 setup:
@@ -18,15 +18,14 @@ start: start-service start-build-app
 
 lint: 
 	@echo $(GOLINT) -set_exit_status ${PKG_LIST}
-
 test:
 	@go test ${PKG_LIST}
-
 format:
 	go fmt ./app/...
 
 mock/all:
-	make mock/usecases m=repository	
+	make mock/usecases m=repository
+	make mock/repos m=repository
 
 mock/usecases:
 	mockgen \
@@ -34,6 +33,7 @@ mock/usecases:
 		-destination=./app/usecases/$(m)/mocks/$(m).go \
 		-package $(m)usecasemocks \
         -mock_names UseCase=Mocks
+
 mock/repos:
 	mockgen \
 		-source=./app/infrastructure/repos/$(m)/main.go \

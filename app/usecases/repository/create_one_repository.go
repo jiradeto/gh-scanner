@@ -35,7 +35,7 @@ func (c *CreateOneRepositoryInput) Validate() error {
 // CreateOneRepositoryInput is an input for CreateOneRepository
 type CreateOneRepositoryInput struct {
 	Name *string `json:"name" validate:"required,min=1"`
-	URL  *string `validate:"omitempty,url,contains=//github.com"`
+	URL  *string `json:"url" validate:"url,contains=//github.com"`
 }
 
 func (uc *useCase) CreateOneRepository(ctx context.Context, input CreateOneRepositoryInput) (*entities.Repository, error) {
