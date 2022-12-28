@@ -6,7 +6,8 @@ import (
 
 func GetScannerRules() []entities.ScannerRule {
 	return []entities.ScannerRule{
-		{Type: "begin_word",
+		{
+			Type:        "begin_word",
 			RuleId:      "secret_1",
 			Word:        "public_key",
 			Description: "detected secret public_key"},
