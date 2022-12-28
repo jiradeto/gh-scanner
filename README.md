@@ -32,12 +32,12 @@ make setup
 ```
 This will setup `.env` and configure docker network used by all gh-scanner containers for you.
 
-Then you need to have app dependencies available, you will need Kafka with Zookeeper (as a message queue), and PostgreSQL (as a database) installed and running. Alternatively, you can use the below command to build and start a container image for these prerequisite services:
+Then you need to have app dependencies available, you will need Kafka with Zookeeper (as a message queue), and PostgreSQL (as a database) installed and running. Alternatively, you can use the below command to build and start Docker containers for these prerequisite services:
 ```
 make start-service
 ```
 
-**IMPORTANT**: Please note that before going next step, you need to ensure that all of the above services start and run successfully as some dependencies (i.e., Kafka) may take some time to start. In case you experience an issue with installation or some of them not running, please try to stop services with the following command and start them again:
+**IMPORTANT**: Please note that before going next step, you need to ensure that all of the above services start and run successfully as some dependencies (i.e., Kafka) may take some time to start. In case you experience an issue with installation or some of the service not running, please try to stop services with the following command and start them again:
 ```
 make stop-service
 ```
@@ -45,7 +45,7 @@ In addition, you can troubleshoot the cause of the issue by checking container l
 
 
 ### 2. Running gh-scan
-In order to start the app, there are two services that need to be run together — [API Service](#1-api-service) and [Scanner service](#2-running-gh-scan). To setup, please run command
+In order to start the app, there are two services that need to be run together — [API service](#1-api-service) and [Scanner service](#2-running-gh-scan). To setup, please run command
 ```
 make start-app
 ```
@@ -72,7 +72,7 @@ This will trigger all unit tests in the project.
 
 
 ## Development
-To run application locally, you need to first install dependencies. At the root of project, run:
+To run application locally, you need to first install project Go dependencies. At the root of project, run:
 ```
 go mod download
 ```
