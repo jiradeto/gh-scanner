@@ -10,4 +10,3 @@ COPY --from=builder /app/.env /app/.env
 COPY --from=builder /app/dist/worker /app/worker
 WORKDIR /app
 CMD ["/app/worker", "--production"]
-# CMD ["tail", "-f", "/dev/null"]

@@ -31,6 +31,7 @@ test:
 mock/all:
 	make mock/usecases m=repository
 	make mock/repos m=repository
+	mock/messagequeue
 
 mock/usecases:
 	mockgen \
@@ -45,3 +46,10 @@ mock/repos:
 		-destination=./app/infrastructure/repos/$(m)/mocks/$(m).go \
 		-package $(m)repomocks \
         -mock_names Repo=Mocks
+
+mock/messagequeue:
+	 /Users/jounjai/go/bin/mockgen \
+		-source=./app/infrastructure/interfaces/messagequeue/client.go \
+		-destination=./app/infrastructure/interfaces/messagequeue/mocks/client.go \
+		-package messagequeuemocks \
+		-mock_names MessageQueueClient=Mocks
