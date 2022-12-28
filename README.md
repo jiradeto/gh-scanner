@@ -1,6 +1,6 @@
 # gh-scanner
 
-gh-scanner is a lightweight web service that provides github code scan tool to find any potentially sensitive information that may have been accidentally committed and exposed to the public. It's designed to be simple by utilizing a scanner to search for particular keyword in the codebase.
+gh-scanner is a lightweight web service that provides Github code scan tool to find any potentially sensitive information that may have been accidentally committed and exposed to the public. It's designed to be simple by utilizing a scanner to search for particular keyword in the codebase.
 
 ## Overview
 ![gh-scanner](docs/images/gh-scanner-service.png)
@@ -8,15 +8,15 @@ gh-scanner is a lightweight web service that provides github code scan tool to f
 ## Features
 - Scan for potential secets and credentials and store findings in db
 - Use message queue as a channel to publish/subscribe message for code scan request
-- REST API for CRUD operation on github repository
+- REST API for CRUD operation on Github repository
 - REST API for CRUD operation on scan result
 
 
 ## Components
 ### 1. API Service
-The API service is the web service responsible for exposing REST API to end user, handling all application logcs, configuring and injecting required libraries, and producing github scan request to message queue to trigger the scanner service to start scanning. 
+The API service is the web service responsible for exposing REST API to end user, handling all application logcs, configuring and injecting required libraries, and producing Github scan request to message queue to trigger the scanner service to start scanning. 
 ### 2. Scanner Service
-The scanner service is mainly used for code scanning and detecting potential secrets and credentials. It works by asynchonously seaching for a set of particular word defined in the user-provided [scanner rules](/app/worker/rules.go). The scanner service subscribe to a message channel and wait for the request to scan github repo sent by the API service.
+The scanner service is mainly used for code scanning and detecting potential secrets and credentials. It works by asynchonously seaching for a set of particular word defined in the user-provided [scanner rules](/app/worker/rules.go). The scanner service subscribe to a message channel and wait for the request to scan Github repo sent by the API service.
 
 
 
@@ -92,7 +92,7 @@ go run cmd/api/main.go migrate
 
 ## Project Structures
 The project is made easy for maintenance and ease for future changes by implementing clean architecture where the code is organized as a layer with specific responsibility. The layer in this project can be defined from the innermost layer to the outermost layer as follows:
-- Presenter (`app/presentors`) : receive imcoming requests and pass to use case, format response sent by use case to end user
+- Presenter (`app/presenters`) : receive imcoming requests and pass to use case, format response sent by use case to end user
 - Use cases (`app/usecases`): handle code business logics
 - Entities (`app/entities`): define data model used in the app and connect to database
 

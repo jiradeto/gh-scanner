@@ -2,8 +2,8 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	healthcheckhttp "github.com/jiradeto/gh-scanner/app/presentors/health_check"
-	repositoryhttp "github.com/jiradeto/gh-scanner/app/presentors/repository"
+	healthcheckhttp "github.com/jiradeto/gh-scanner/app/presenters/health_check"
+	repositoryhttp "github.com/jiradeto/gh-scanner/app/presenters/repository"
 )
 
 // HTTPRoutes ...
