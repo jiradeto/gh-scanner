@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"ji\",\n    \"url\": \"https://github.com/guardrailsio/backend-engineer-challenge-new\"\n}",
+							"raw": "{\n    \"name\":\"gh-scanner repo \",\n    \"url\": \"https://github.com/jiradeto/gh-scanner\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"jiradet-22323\",\n    \"url\": \"http://github.com/go-playground/validator\"\n}",
+							"raw": "{\n    \"name\":\"Gin framework\",\n    \"url\": \"https://github.com/gin-gonic/gin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -66,7 +66,7 @@
 							"variable": [
 								{
 									"key": "reposiroryID",
-									"value": "7827f71a-df70-4c16-964f-d65836ec4312"
+									"value": "ffdd9b97-b3c3-4948-b628-ae3bd6bae9f4"
 								}
 							]
 						}
@@ -230,7 +230,7 @@
 							"variable": [
 								{
 									"key": "repositoryID",
-									"value": "e52c0346-41af-4466-90de-d91be88e21bb"
+									"value": "ffdd9b97-b3c3-4948-b628-ae3bd6bae9f4"
 								}
 							]
 						}

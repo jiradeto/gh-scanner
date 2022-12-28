@@ -26,20 +26,26 @@ The scanner service is mainly used for code scanning and detecting potential sec
 ## Building and Running
 
 ### 1. Prerequisite
-To run the project, you will need to have Kafka with Zookeper (as a message queue), and Postgresq (as a database) installed and running. Alternatively, you can use below command to build and start container image for these prerequisited services:
-```
-make start-service
-```
-
-Next, you need to run the following comand to setup application:
+If it's your first time running this application, you need to setup app configuration with:
 ```
 make setup
 ```
 This will setup `.env` and configure docker network used by all gh-scanner containers for you.
 
+Then you need to have app dependencies available, you will need Kafka with Zookeper (as a message queue), and Postgresq (as a database) installed and running. Alternatively, you can use below command to build and start container image for these prerequisited services:
+```
+make start-service
+```
+
+**IMPORTANT**: Please note that before going next step, you need to ensure that all of the above services start and run succesfully as some dependencies (i.e., Kafka) may take some time to start. In case you experience an issue with installation or some of them not running, please try to stop services with following command and start them again:
+```
+make stop-service
+```
+In addition, you can troubleshoot the cause of the issue by checking container log with commands `docker logs $CONTAINER_NAME`
+
 
 ### 2. Running gh-scan
-In order to start the app, there are two services that need to be run together — API Service and Scanner service. To setup, please run command
+In order to start the app, there are two services that need to be run together — [API Service](#1-api-service) and [Scanner service](#2-running-gh-scan). To setup, please run command
 ```
 make start-app
 ```
