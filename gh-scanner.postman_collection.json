@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "a206468c-4dd7-4e04-a02a-265787540e23",
+		"name": "gh-scanner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "474552"
+	},
+	"item": [
+		{
+			"name": "repository",
+			"item": [
+				{
+					"name": "Create Repository",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"ji\",\n    \"url\": \"https://github.com/guardrailsio/backend-engineer-challenge-new\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/repository/",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"repository",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update One Repository",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"jiradet-22323\",\n    \"url\": \"http://github.com/go-playground/validator\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/repository/:reposiroryID",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"repository",
+								":reposiroryID"
+							],
+							"variable": [
+								{
+									"key": "reposiroryID",
+									"value": "7827f71a-df70-4c16-964f-d65836ec4312"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Repository",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/repository/:repositoryID",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"repository",
+								":repositoryID"
+							],
+							"variable": [
+								{
+									"key": "repositoryID",
+									"value": "7827f71a-df70-4c16-964f-d65836ec4312"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One Repository",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/repository/7827f71a-df70-4c16-964f-d65836ec4312",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"repository",
+								"7827f71a-df70-4c16-964f-d65836ec4312"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Repositories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/repository/list",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"repository",
+								"list"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "foo",
+									"disabled": true
+								},
+								{
+									"key": "url",
+									"value": "example.com",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "scanner",
+			"item": [
+				{
+					"name": "Start Scanner",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/repository/:repositoryID/scan",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"repository",
+								":repositoryID",
+								"scan"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "7827f71a-df70-4c16-964f-d65836ec4312",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "repositoryID",
+									"value": "e52c0346-41af-4466-90de-d91be88e21bb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Repo Scan result",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/repository/:repositoryID/scan_result/list",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"repository",
+								":repositoryID",
+								"scan_result",
+								"list"
+							],
+							"variable": [
+								{
+									"key": "repositoryID",
+									"value": "b7cb428a-739a-44ae-92d1-02e8e03726a0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "scan result",
+			"item": [
+				{
+					"name": "Get All Scan Results",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/scan_result/list",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"scan_result",
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "repositoryID",
+									"value": "f2ef8ee5-2c70-43a8-b407-54e9e17bb555",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Scan Results",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gh_scanner_host}}/api/v1/scan_result/:scanResultID",
+							"host": [
+								"{{gh_scanner_host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"scan_result",
+								":scanResultID"
+							],
+							"variable": [
+								{
+									"key": "scanResultID",
+									"value": "a79e1848-27ae-4e8b-b122-dab94af5ce6d"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HealthCheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gh_scanner_host}}/health/check",
+					"host": [
+						"{{gh_scanner_host}}"
+					],
+					"path": [
+						"health",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AppVersion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gh_scanner_host}}/health/version",
+					"host": [
+						"{{gh_scanner_host}}"
+					],
+					"path": [
+						"health",
+						"version"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "gh_scanner_host",
+			"value": "localhost:8080"
+		}
+	]
+}
